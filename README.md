@@ -22,7 +22,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Must define `CUSTOM_RAILS_SETTINGS_KEYS` before `include CustomRailsSettingsCached`
+
+Exam:
+```ruby
+  CUSTOM_RAILS_SETTINGS_KEYS = {
+    google_analytics: [:enabled, :tracking_code],
+    facebook_pixel_ads: [:enabled, :tracking_code]
+  }
+  include CustomRailsSettingsCached
+ ```
+
+Or, can use with your custom concern.
+
+```ruby
+require 'custom_rails_settings_cached'
+
+module MyCustomRailsSetting
+  def self.included klass
+    klass.include CustomRailsSettingsCached
+
+    # custom more here
+    # klass.class_eval do
+    #   has_many :players
+    #   validates :number_of_player, presence: true
+    # end
+  end
+end
+
+```
+Then use `include MyCustomRailsSetting` at model.
 
 ## Development
 
