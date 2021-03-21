@@ -24,12 +24,28 @@ Or install it yourself as:
 
 Must define `CUSTOM_RAILS_SETTINGS_KEYS` before `include CustomRailsSettingsCached`
 
-Exam:
+*CUSTOM_RAILS_SETTINGS_KEYS* can be Array or Hash.
+
 ```ruby
   CUSTOM_RAILS_SETTINGS_KEYS = {
     google_analytics: [:enabled, :tracking_code],
     facebook_pixel_ads: [:enabled, :tracking_code]
   }
+  
+  # Or
+  
+  CUSTOM_RAILS_SETTINGS_KEYS = [:google_analytics, :facebook_pixel_ads]
+  
+  # Or
+  
+  CUSTOM_RAILS_SETTINGS_KEYS = {
+    google_analytics: :tracking_code,
+    facebook_pixel_ads: [:enabled, :tracking_code]
+  }
+```
+Then, include `CustomRailsSettingsCached` in your model.
+Exam:
+```ruby
   include CustomRailsSettingsCached
  ```
 
