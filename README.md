@@ -1,12 +1,13 @@
 # CustomRailsSettingsCached
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/custom_rails_settings_cached`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+My Custom with Rails Settings Cached. Easy to setup and use.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+You need install [Rails Settings Cached](https://github.com/huacnlee/rails-settings-cached) to use this gem.
+
+
+Then, ddd this line to your application's Gemfile:
 
 ```ruby
 gem 'custom_rails_settings_cached'
