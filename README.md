@@ -69,6 +69,23 @@ end
 ```
 Then use `include MyCustomRailsSetting` at model.
 
+Exams:
+
+**Get Value**
+
+```ruby
+    object = YourModel.first
+    object.google_analytics_tracking_code
+```
+
+**Set Value**
+
+```ruby
+    object = YourModel.first
+    object.update google_analytics_tracking_code: '123456ABCDEF'
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
