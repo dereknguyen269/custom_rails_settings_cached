@@ -52,24 +52,34 @@ module CustomRailsSettingsCached
     end
 
     if defined?(self::CUSTOM_RAILS_SETTINGS_KEYS)
-      if self::CUSTOM_RAILS_SETTINGS_KEYS.is_a?(Array)
+      build_custom_settings_methods self::CUSTOM_RAILS_SETTINGS_KEYS
+    end
+  end
+
+  module ClassMethods
+    def build_custom_settings_methods(custom_settings)
+      if custom_settings.is_a?(Array)
         # Exam:
         # CUSTOM_RAILS_SETTINGS_KEYS = [:google_analytics, :facebook_pixel_ads]
-        self::CUSTOM_RAILS_SETTINGS_KEYS.each do |setting_key|
-          self.define_method "#{setting_key}" do
-            self.get_settings setting_key
-          end
-          self.define_method "#{setting_key}=" do |setting_value|
-            self.init_setting(setting_key, setting_value)
+        custom_settings.each do |setting_key|
+          if setting_key.is_a?(Symbol)
+            self.define_method "#{setting_key}" do
+              self.get_settings setting_key
+            end
+            self.define_method "#{setting_key}=" do |setting_value|
+              self.init_setting(setting_key, setting_value)
+            end
+          else
+            self.build_custom_settings_methods setting_key
           end
         end
-      elsif self::CUSTOM_RAILS_SETTINGS_KEYS.is_a?(Hash)
+      elsif custom_settings.is_a?(Hash)
         # Exam:
         # CUSTOM_RAILS_SETTINGS_KEYS = {
         #   google_analytics: [:enabled, :tracking_code],
         #   facebook_pixel_ads: [:enabled, :tracking_code]
         # }
-        self::CUSTOM_RAILS_SETTINGS_KEYS.each do |k, v|
+        custom_settings.each do |k, v|
           if v.is_a?(Array)
             v.each do |setting_key|
               # Use: Partner.first.google_analytics_enabled
@@ -82,7 +92,7 @@ module CustomRailsSettingsCached
                 self.init_setting(store_setting_key, setting_value)
               end
             end
-          else
+          elsif v.is_a?(Symbol)
             # Use: Partner.first.google_analytics
             self.define_method "#{v}" do
               self.get_settings v
