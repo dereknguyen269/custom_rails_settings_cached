@@ -12,7 +12,7 @@ module CustomRailsSettingsCached
     def get_settings(name)
       if has_associations_with_rails_settings
         st = settings.find_by var: setting_key(name)
-        st&.value
+        st ? st.value : default_value(name)
       else
         Setting[setting_key(name)]
       end
@@ -49,6 +49,11 @@ module CustomRailsSettingsCached
       return @has_rails_settings unless @has_rails_settings.nil?
       associations = self.class.reflect_on_all_associations(:has_many)
       @has_rails_settings = associations.any? { |a| a.name == :settings }
+    end
+
+    def default_value(name)
+      default_setting_key = "#{self.class.name.to_s.underscore}.#{name.to_s.underscore}"
+      Setting[default_setting_key]
     end
 
     if defined?(self::CUSTOM_RAILS_SETTINGS_KEYS)
