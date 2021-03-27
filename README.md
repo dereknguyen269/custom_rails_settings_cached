@@ -43,6 +43,14 @@ Must define `CUSTOM_RAILS_SETTINGS_KEYS` before `include CustomRailsSettingsCach
     google_analytics: :tracking_code,
     facebook_pixel_ads: [:enabled, :tracking_code]
   }
+  
+  # Or mixin
+  
+  CUSTOM_RAILS_SETTINGS_KEYS = {
+    :title, :description,
+    google_analytics: [:enabled, :tracking_code],
+    facebook_pixel_ads: [:enabled, :tracking_code]
+  }
 ```
 Then, include `CustomRailsSettingsCached` in your model.
 Exam:
