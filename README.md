@@ -94,6 +94,12 @@ Exams:
     object.update google_analytics_tracking_code: '123456ABCDEF'
 ```
 
+**Default value**
+
+In `config/app.yml` add:
+```
+    your_model.google_analytics_tracking_code: "QWERTY123456"
+```
 
 ## Development
 
